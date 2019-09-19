@@ -1,0 +1,9 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~material-design-icons/iconfont/material-icons.css';
+
+/* for sidenav to take a whole page */
+html, body {
+  margin: 0;
+  height: 100%;
+}

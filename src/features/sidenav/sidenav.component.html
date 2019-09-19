@@ -1,0 +1,31 @@
+<mat-list>
+  <button mat-menu-item>Inicio</button>
+  <button mat-menu-item [matMenuTriggerFor]="areasInteres">Áreas de interés <i class="material-icons md-24">arrow_forward_ios</i></button>
+  <mat-menu #areasInteres="matMenu" xPosition="after">
+    <button mat-menu-item>Ciencia y Literatura</button>
+    <button mat-menu-item>Patrimonio Nacional</button>
+    <button mat-menu-item>Físicos Alrededor</button>
+    <button mat-menu-item>Proyectos Finalizados</button>
+    <button mat-menu-item>Sistemas Complejos</button>
+  </mat-menu>
+  <button mat-menu-item [matMenuTriggerFor]="publicaciones">Publicaciones <i class="material-icons">arrow_right</i></button>
+  <mat-menu #publicaciones="matMenu">
+    <button mat-menu-item>Publicaciones Científicas</button>
+    <button mat-menu-item>Tesis</button>
+  </mat-menu>
+  <button mat-menu-item [matMenuTriggerFor]="noticias">Noticias <i class="material-icons">arrow_right</i></button>
+  <mat-menu #noticias="matMenu">
+    <button mat-menu-item>Noticias y artículos destacados</button>
+    <button mat-menu-item>Premios y Honores</button>
+    <button mat-menu-item>Próximas Actividades</button>
+  </mat-menu>
+  <button mat-menu-item [matMenuTriggerFor]="divulgaciones">Divulgaciones<i class="material-icons">arrow_right</i></button>
+  <mat-menu #divulgaciones="matMenu">
+    <button mat-menu-item>Enlaces y Recursos</button>
+    <button mat-menu-item>Galería de Imágenes</button>
+    <button mat-menu-item>Otros artículos sobre nuestra investigación</button>
+  </mat-menu>
+  <button mat-menu-item>Cooperación con otros proyectos</button>
+  <button mat-menu-item>Contáctenos</button>
+  <button mat-menu-item>Facebook</button>
+</mat-list>

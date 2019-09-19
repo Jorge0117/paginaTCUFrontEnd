@@ -1,0 +1,39 @@
+.headerLogos {
+  background-color: #41ade7;
+  height: 220px;
+}
+
+.tituloHeader {
+  color: white;
+  font-size: 36px;
+  margin-left: 15px;
+  position: absolute;
+  left: 13rem;
+  top: 3rem;
+}
+
+.textoHeader {
+  color: white;
+  font-size: 20px;
+  margin-left: 15px;
+  margin-top: 4rem;
+}
+
+.logoUcr {
+  position: absolute;
+  left: 40rem;
+  top: 3rem;
+}
+
+.logoVas {
+  position: absolute;
+  left: 40rem;
+  top: 10rem;
+}
+
+.logoTcu {
+  position: absolute;
+  left: 51rem;
+  top: 8rem;
+  width: 10rem;
+}

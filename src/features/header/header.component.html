@@ -1,0 +1,57 @@
+<mat-toolbar class="headerLogos">
+  <img src="../../assets/images/logoObex.jpg" width="190" height="190">
+  <h1 class="tituloHeader">
+    TCU OBEX
+  </h1>
+  <h4 class="textoHeader">
+    Enseñando Ciencia basada en<br>Observación y Experimentación
+  </h4>
+  <a href="http://www.ucr.ac.cr">
+    <img src="../../assets/images/firma-ucr-c.png" class="logoUcr">
+  </a>
+  <a href="https://accionsocial.ucr.ac.cr/">
+    <img src="../../assets/images/logoVas.png" class="logoVas">
+  </a>
+  <a href="https://tcu.ucr.ac.cr/core/tcu_index/">
+    <img src="../../assets/images/tcu-logo-vertical.png" class="logoTcu">
+  </a>
+</mat-toolbar>
+
+<mat-toolbar>
+  <div *ngIf="screenWidth < 700">
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <i class="material-icons">menu</i>
+    </button>
+  </div>
+  <div *ngIf="screenWidth >= 700">
+    <button mat-button>Inicio</button>
+    <button mat-button [matMenuTriggerFor]="areasInteres">Áreas de interés <i class="material-icons">arrow_drop_down</i></button>
+    <mat-menu #areasInteres="matMenu">
+      <button mat-menu-item>Ciencia y Literatura</button>
+      <button mat-menu-item>Patrimonio Nacional</button>
+      <button mat-menu-item>Físicos Alrededor</button>
+      <button mat-menu-item>Proyectos Finalizados</button>
+      <button mat-menu-item>Sistemas Complejos</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="publicaciones">Publicaciones <i class="material-icons">arrow_drop_down</i></button>
+    <mat-menu #publicaciones="matMenu">
+      <button mat-menu-item>Publicaciones Científicas</button>
+      <button mat-menu-item>Tesis</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="noticias">Noticias <i class="material-icons">arrow_drop_down</i></button>
+    <mat-menu #noticias="matMenu">
+      <button mat-menu-item>Noticias y artículos destacados</button>
+      <button mat-menu-item>Premios y Honores</button>
+      <button mat-menu-item>Próximas Actividades</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="divulgaciones">Divulgaciones<i class="material-icons">arrow_drop_down</i></button>
+    <mat-menu #divulgaciones="matMenu">
+      <button mat-menu-item>Enlaces y Recursos</button>
+      <button mat-menu-item>Galería de Imágenes</button>
+      <button mat-menu-item>Otros artículos sobre nuestra investigación</button>
+    </mat-menu>
+    <button mat-button>Cooperación con otros proyectos</button>
+    <button mat-button>Contáctenos</button>
+    <button mat-button>Facebook</button>
+  </div>
+</mat-toolbar>

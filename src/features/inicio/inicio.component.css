@@ -1,0 +1,24 @@
+.titulo {
+  font-size: 36px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.descripcion {
+  font-size: 14px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #044389;
+  margin-bottom: 1.5rem;
+}
+
+.areasInteresContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.areasInteresContainer>* {
+  flex: 0 0 150px;
+  margin-right: 5px;
+  margin-top: 5px;
+}
