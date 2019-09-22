@@ -7,3 +7,11 @@ html, body {
   margin: 0;
   height: 100%;
 }
+
+.botonesAceptarCancelar {
+  background-color: #41ade7;
+  color: white;
+  margin-top: 10px !important;
+  margin-right: 5px !important;
+  margin-bottom: 5px !important;
+}

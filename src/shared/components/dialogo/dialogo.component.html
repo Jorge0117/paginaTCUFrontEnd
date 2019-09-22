@@ -1,0 +1,11 @@
+<div class="contenedor">
+  <div mat-dialog-content class="text-center">
+    {{ datos.mensaje }}
+  </div>
+</div>
+<br>
+<div mat-dialog-actions class="justify-content-center">
+  <button mat-button *ngIf="datos.tipoMensaje==='confirmacion'" [mat-dialog-close]="true">Sí</button>
+  <button mat-button *ngIf="datos.tipoMensaje==='confirmacion'" (click)="cerrar()">No</button>
+  <button mat-button *ngIf="datos.tipoMensaje==='afirmacion' || datos.tipoMensaje==='error'" (click)="cerrar()">Aceptar</button>
+</div>

@@ -1,0 +1,48 @@
+<div class="container">
+
+  <h2>Usuarios</h2>
+
+  <div style="margin-top: -3rem">
+    <button mat-stroked-button class="botonAgregar" [routerLink]="['/usuarios', 'agregar', 'nuevo']">Agregar</button>
+
+    <mat-form-field class="barraBusqueda">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+    </mat-form-field>
+
+    <div class="mat-elevation-z2">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="correo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+          <td mat-cell *matCellDef="let usuario">{{usuario.correo}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+          <td mat-cell *matCellDef="let usuario">{{usuario.nombre + ' ' + usuario.apellido1 + ' ' + usuario.apellido2}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+          <td mat-cell *matCellDef="let usuario">{{usuario.tipo}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let usuario">
+            <button mat-stroked-button class="botonesTabla" [routerLink]="['/usuarios', 'visualizar', usuario.correo]">Detalles</button>
+            <button mat-stroked-button class="botonesTabla" [routerLink]="['/usuarios', 'editar', usuario.correo]">Editar</button>
+            <button mat-stroked-button class="botonesTabla" (click)="abrirDialogoConfirmacion(usuario.correo)">Eliminar</button>
+          </td>
+
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+
+  <button mat-button class="botonesAceptarCancelar" [routerLink]="['/']">Volver</button>
+
+</div>

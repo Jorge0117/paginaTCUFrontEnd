@@ -1,0 +1,67 @@
+<div class="container">
+  <form [formGroup]="formUsuario">
+
+    <h2>{{titulo}}</h2>
+    <mat-card class="formContainer">
+
+      <mat-form-field>
+        <input matInput placeholder="Correo" formControlName="correo" required>
+        <mat-error *ngIf="datos.correo.errors?.required && datos.correo.touched">
+          Este campo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="datos.correo.errors?.email && datos.correo.touched">
+          El correo no cumple con un formto válido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Nombre" formControlName="nombre" required>
+        <mat-error *ngIf="datos.nombre.errors?.invalid && datos.nombre.touched">
+          Este campo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="datos.nombre.errors?.pattern && datos.nombre.touched">
+          Este campo solo puede contener letras
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Primer apellido" formControlName="apellido1" required>
+        <mat-error *ngIf="datos.apellido1.errors?.invalid && datos.apellido1.touched">
+          Este campo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="datos.apellido1.errors?.pattern && datos.apellido1.touched">
+          Este campo solo puede contener letras
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Segundo apellido" formControlName="apellido2" required>
+        <mat-error *ngIf="datos.apellido2.errors?.invalid && datos.apellido2.touched">
+          Este campo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="datos.apellido2.errors?.pattern && datos.apellido2.touched">
+          Este campo solo puede contener letras
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Tipo de usuario</mat-label>
+        <mat-select required formControlName="tipo">
+          <mat-option [value]="'Administrador'">
+            Administrador
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="datos.tipo.errors?.invalid && datos.tipo.touched">
+          Este campo es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+    </mat-card>
+  </form>
+
+  <button mat-button class="botonesAceptarCancelar" type="submit" (click)="editar()" *ngIf="modoForm === 'editar'" [disabled]="formUsuario.invalid">Aceptar</button>
+  <button mat-button class="botonesAceptarCancelar" type="submit" (click)="agregar()" *ngIf="modoForm === 'agregar'" [disabled]="formUsuario.invalid">Aceptar</button>
+
+  <button mat-button class="botonesAceptarCancelar" type="button" (click)="cancelar()">Cancelar</button>
+
+</div>

@@ -8,6 +8,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HeaderModule} from '../features/header/header.module';
 import {MatSidenavModule} from '@angular/material';
 import {SidenavModule} from '../features/sidenav/sidenav.module';
+import {UsuariosModule} from '../features/usuarios/usuarios.module';
+import {DialogoModule} from '../shared/components/dialogo/dialogo.module';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import {SidenavModule} from '../features/sidenav/sidenav.module';
     RouterModule,
     BrowserAnimationsModule,
     HeaderModule,
-    SidenavModule
+    SidenavModule,
+    UsuariosModule,
+    DialogoModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
