@@ -1,0 +1,25 @@
+<div>
+  <form [formGroup]="formLogin">
+
+    <mat-card class="loginCard">
+
+      <div class="form-group">
+        <label for="cedula">Usuario</label>
+        <input id="cedula" type="text" formControlName="correo" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="pass">Contraseña</label>
+        <input id="pass" type="password" formControlName="password" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <button mat-button (click)="login()" [disabled]="loading" class="mat-stroked-button botonesAceptarCancelar">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Login
+        </button>
+      </div>
+
+    </mat-card>
+  </form>
+</div>

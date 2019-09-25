@@ -53,6 +53,15 @@
     <button mat-button>Cooperación con otros proyectos</button>
     <button mat-button>Contáctenos</button>
     <button mat-button>Facebook</button>
-    <button mat-button routerLink="/usuarios">Usuarios</button>
+    <button mat-button routerLink="/usuarios" *ngIf="authService.isLoggedIn()">Usuarios</button>
+
+
   </div>
+  <span class="spacer"></span>
+
+  <button *ngIf="!authService.isLoggedIn()" class="padd" mat-button (click)="abrirLogin()"> <mat-icon>person</mat-icon>Login</button>
+  <button *ngIf="authService.isLoggedIn()" mat-button [mat-menu-trigger-for]="perfil"><mat-icon>person</mat-icon>{{authService.getNombreCompleto()}}</button>
+  <mat-menu #perfil="matMenu">
+    <button mat-menu-item (click)="authService.logout()">Logout</button>
+  </mat-menu>
 </mat-toolbar>

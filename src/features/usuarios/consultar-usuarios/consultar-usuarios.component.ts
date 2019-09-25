@@ -50,7 +50,7 @@ export class ConsultarUsuariosComponent implements OnInit {
         this.abrirDialogoAfirmacion('Usuario eliminado correctamente');
       },
       error => {
-        this.abrirDialogoError('Error al eliminar usuario, inténtelo de nuevo');
+        this.abrirDialogoError('Error al eliminar usuario.\n' + error.status + '-' + error.statusText);
       });
   }
 

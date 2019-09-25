@@ -1,5 +1,8 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {HostListener} from '@angular/core';
+import {MatDialog} from '@angular/material';
+import {LoginComponent} from '../login/login.component';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +16,8 @@ export class HeaderComponent implements OnInit {
 
   @Output() public sidenavToggle = new EventEmitter();
 
-  constructor() {
+  constructor(public dialog: MatDialog,
+              private authService: AuthService) {
     this.getScreenSize();
   }
 
@@ -22,7 +26,7 @@ export class HeaderComponent implements OnInit {
 
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();
-  }
+  };
 
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?) {
@@ -30,4 +34,11 @@ export class HeaderComponent implements OnInit {
     this.screenWidth = window.innerWidth;
   }
 
+  private abrirLogin() {
+    this.dialog.open(LoginComponent,
+      {
+        width: '700px',
+        data: ''
+      });
+  }
 }

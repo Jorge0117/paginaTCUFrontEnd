@@ -106,7 +106,7 @@ export class FormsUsuariosComponent implements OnInit {
         this.abrirDialogoAfirmacion('Usuario agregado correctamente');
       },
       error => {
-        this.abrirDialogoError('Error al agregar usuario, inténtelo de nuevo');
+        this.abrirDialogoError('Error al agregar usuario.\n' + error.status + '-' + error.statusText);
       });
   }
 
@@ -125,7 +125,7 @@ export class FormsUsuariosComponent implements OnInit {
         this.abrirDialogoAfirmacion('Usuario modificado correctamente');
       },
       error => {
-        this.abrirDialogoError('Error al modificar usuario, inténtelo de nuevo');
+        this.abrirDialogoError('Error al modificar usuario.\n' + error.status + '-' + error.statusText);
       });
   }
 

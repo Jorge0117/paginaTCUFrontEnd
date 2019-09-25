@@ -10,8 +10,9 @@ import {MatSidenavModule} from '@angular/material';
 import {SidenavModule} from '../features/sidenav/sidenav.module';
 import {UsuariosModule} from '../features/usuarios/usuarios.module';
 import {DialogoModule} from '../shared/components/dialogo/dialogo.module';
-import {HttpClientModule} from '@angular/common/http';
-
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {LoginModule} from '../features/login/login.module';
+import {TokenInterceptor} from '../shared/seguridad/token-interceptor';
 @NgModule({
   declarations: [
     AppComponent
@@ -26,9 +27,16 @@ import {HttpClientModule} from '@angular/common/http';
     SidenavModule,
     UsuariosModule,
     DialogoModule,
-    HttpClientModule
+    HttpClientModule,
+    LoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
