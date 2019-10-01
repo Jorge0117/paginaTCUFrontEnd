@@ -13,6 +13,7 @@ import {DialogoModule} from '../shared/components/dialogo/dialogo.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {LoginModule} from '../features/login/login.module';
 import {TokenInterceptor} from '../shared/seguridad/token-interceptor';
+import {AreasDeInteresModule} from '../features/areas-de-interes/areas-de-interes.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -28,7 +29,8 @@ import {TokenInterceptor} from '../shared/seguridad/token-interceptor';
     UsuariosModule,
     DialogoModule,
     HttpClientModule,
-    LoginModule
+    LoginModule,
+    AreasDeInteresModule
   ],
   providers: [
     {

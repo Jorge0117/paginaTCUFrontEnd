@@ -1,39 +1,38 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {UsuarioEntidad} from '../../../shared/entities/usuarioEntidad';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {UsuariosService} from '../../../shared/services/usuarios.service';
+import {AreasDeInteresEntidad} from '../../../shared/entities/areasDeInteresEntidad';
+import {AreasDeInteresService} from '../../../shared/services/areas-de-interes.service';
 import {DialogoComponent} from '../../../shared/components/dialogo/dialogo.component';
 
 @Component({
-  selector: 'app-consultar-usuarios',
-  templateUrl: './consultar-usuarios.component.html',
-  styleUrls: ['./consultar-usuarios.component.css']
+  selector: 'app-consultar-areas-de-interes',
+  templateUrl: './consultar-areas-de-interes.component.html',
+  styleUrls: ['./consultar-areas-de-interes.component.css']
 })
-export class ConsultarUsuariosComponent implements OnInit {
+export class ConsultarAreasDeInteresComponent implements OnInit {
 
-  usuarios: Array<UsuarioEntidad>;
+  areas: Array<AreasDeInteresEntidad>;
 
-  public displayedColumns: string[] = ['correo', 'nombre', 'tipo', 'acciones'];
+  public displayedColumns: string[] = ['imagen', 'esp_nombre', 'ing_nombre', 'acciones'];
 
-  public dataSource = new MatTableDataSource<UsuarioEntidad>();
+  public dataSource = new MatTableDataSource<AreasDeInteresEntidad>();
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
-  constructor(private usuariosService: UsuariosService,
+  constructor(private areasDeInteresService: AreasDeInteresService,
               public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.consultarUsuarios();
+    this.consultarAreas();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  private consultarUsuarios() {
-    this.usuariosService.consultar().subscribe(
-      usuarios => {
-        this.dataSource.data = usuarios as UsuarioEntidad[];
-        this.usuarios = this.dataSource.data;
+  private consultarAreas() {
+    this.areasDeInteresService.consultar().subscribe(
+      areas => {
+        this.dataSource.data = areas as AreasDeInteresEntidad[];
+        this.areas = this.dataSource.data;
       });
   }
 
@@ -41,27 +40,27 @@ export class ConsultarUsuariosComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  private eliminar(correo: string) {
-    this.usuariosService.eliminar(correo).subscribe(
+  private eliminar(id: number) {
+    this.areasDeInteresService.eliminar(id).subscribe(
       res => {
-        this.consultarUsuarios();
-        this.abrirDialogoAfirmacion('Usuario eliminado correctamente');
+        this.consultarAreas();
+        this.abrirDialogoAfirmacion('Área de interés eliminada correctamente');
       },
       error => {
         this.abrirDialogoError('Error al eliminar usuario.\n' + error.status + '-' + error.statusText);
       });
   }
 
-  private abrirDialogoConfirmacion(cedula: string) {
+  private abrirDialogoConfirmacion(id: number) {
     const dialogRef = this.dialog.open(DialogoComponent,
       {
         width: '350px',
-        data: {mensaje: '¿Seguro que desea eliminar el usuario?', tipoMensaje: 'confirmacion'}
+        data: {mensaje: '¿Seguro que desea eliminar el área de interés?', tipoMensaje: 'confirmacion'}
       });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.eliminar(cedula);
+        this.eliminar(id);
       }
     });
   }

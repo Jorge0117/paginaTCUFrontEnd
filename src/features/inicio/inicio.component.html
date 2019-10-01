@@ -15,33 +15,17 @@
   <br>
   </body>
 
-  <h1>Áreas de interés</h1>
+  <h1>Áreas de interés <button mat-button routerLink="/areasdeinteres" *ngIf="authService.isLoggedIn()">Editar</button> </h1>
   <mat-card class="areasInteresContainer">
 
-    <button mat-button>
-      <img src="../../assets/images/100.png">
-      <div>Ciencia y Literatura</div>
-    </button>
+    <div *ngFor="let area of areasDeInteres">
+      <button mat-button>
+        <img src="../../assets/images/100.png" *ngIf="area.ubicacion_imagen == ''">
+        <img src="{{area.ubicacion_imagen}}" *ngIf="area.ubicacion_imagen != ''">
+        <div>{{area.esp_nombre}}</div>
+      </button>
+    </div>
 
-    <button mat-button>
-      <img src="../../assets/images/100.png">
-      <div>Patrimonio Histórico</div>
-    </button>
-
-    <button mat-button>
-      <img src="../../assets/images/100.png">
-      <div>Físicos Alrededor</div>
-    </button>
-
-    <button mat-button>
-      <img src="../../assets/images/100.png">
-      <div>Proyectos Finalizados</div>
-    </button>
-
-    <button mat-button>
-      <img src="../../assets/images/100.png">
-      <div>Sistemas Complejos</div>
-    </button>
 
   </mat-card>
 

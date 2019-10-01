@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { InicioComponent } from './inicio.component';
 import {RouterModule} from '@angular/router';
 import {InicioRoutingModule} from './inicio-routing.module';
-import {MatButtonModule, MatCardModule, MatDividerModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatDialogModule, MatDividerModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import {MatButtonModule, MatCardModule, MatDividerModule} from '@angular/materia
     InicioRoutingModule,
     MatDividerModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   exports: [
     InicioComponent

@@ -1,0 +1,32 @@
+<div class="container">
+  <form [formGroup]="formAreas">
+
+    <h2>{{titulo}}</h2>
+    <mat-card class="formContainer">
+
+      <mat-form-field>
+        <input matInput placeholder="Nombre en español" formControlName="esp_nombre" required>
+        <mat-error *ngIf="datos.esp_nombre.errors?.required && datos.esp_nombre.touched">
+          Este campo es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Nombre en inglés" formControlName="ing_nombre" required>
+        <mat-error *ngIf="datos.ing_nombre.errors?.invalid && datos.ing_nombre.touched">
+          Este campo es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+      <mat-label>Archivo adjunto</mat-label>
+      <input type="file" (change)="onFileSelect($event)" />
+
+    </mat-card>
+  </form>
+
+  <button mat-button class="botonesAceptarCancelar" type="submit" (click)="editar()" *ngIf="modoForm === 'editar'" [disabled]="formAreas.invalid">Aceptar</button>
+  <button mat-button class="botonesAceptarCancelar" type="submit" (click)="agregar()" *ngIf="modoForm === 'agregar'" [disabled]="formAreas.invalid">Aceptar</button>
+
+  <button mat-button class="botonesAceptarCancelar" type="button" (click)="cancelar()">Cancelar</button>
+
+</div>
