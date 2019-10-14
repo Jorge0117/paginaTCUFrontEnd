@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {AreasDeInteresService} from '../../../shared/services/areas-de-interes.service';
 import {DialogoComponent} from '../../../shared/components/dialogo/dialogo.component';
+import {FileService} from '../../../shared/services/files.service';
 
 @Component({
   selector: 'app-forms-areas-de-interes',
@@ -32,7 +33,8 @@ export class FormsAreasDeInteresComponent implements OnInit {
               private fb: FormBuilder,
               private routeService: Router,
               private route: ActivatedRoute,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private fileService: FileService) { }
 
   ngOnInit() {
     this.modoForm = this.route.snapshot.params.modo;
@@ -80,11 +82,34 @@ export class FormsAreasDeInteresComponent implements OnInit {
   }
 
   private agregar() {
+    if (this.formAreas.get('foto').value !== '') {
+      const formData = new FormData();
+      formData.append('archivo', this.formAreas.get('foto').value);
+
+      this.fileService.subirImagen(formData, 'areas_de_interes').subscribe(
+        (res) => {
+          this.uploadResponse = res.url;
+          console.log(this.uploadResponse.substring(this.uploadResponse.indexOf('files')));
+          this.uploadResponse = this.uploadResponse.substring(this.uploadResponse.indexOf('files\\'));
+          this.agregarAreaDeInteres();
+        },
+        (err) => {
+          this.uploadResponse = 'error';
+          this.abrirDialogoError('Ha ocurrido un error subiendo el archivo');
+        }
+      );
+    } else {
+      this.uploadResponse = '';
+      this.agregarAreaDeInteres();
+    }
+  }
+
+  private agregarAreaDeInteres() {
     const areaNueva = new AreasDeInteresEntidad();
     areaNueva.id = 0;
     areaNueva.esp_nombre = this.formAreas.controls.esp_nombre.value;
     areaNueva.ing_nombre = this.formAreas.controls.ing_nombre.value;
-    areaNueva.ubicacion_imagen = '';
+    areaNueva.ubicacion_imagen = this.uploadResponse;
 
     this.areaService.agregar(areaNueva).subscribe(
       result => {
@@ -132,7 +157,7 @@ export class FormsAreasDeInteresComponent implements OnInit {
   onFileSelect(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.formAreas.controls.archivo.setValue(file);
+      this.formAreas.controls.foto.setValue(file);
     }
   }
 }
