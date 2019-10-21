@@ -69,4 +69,8 @@ export class LoginComponent implements OnInit {
       );
   }
 
+  redireccionOlvidoContrasenna() {
+    this.cerrarDialogo();
+    this.routeService.navigate(['/cambioContrasenna/correo/ingresar']);
+  }
 }

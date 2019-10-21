@@ -91,11 +91,16 @@ export class ConsultarAreasDeInteresComponent implements OnInit {
   }
 
   private descargarImagen(area: AreasDeInteresEntidad) {
-    this.fileService.descargar(area.ubicacion_imagen).subscribe(file => {
+    this.fileService.descargarImagen(area.ubicacion_imagen).subscribe(file => {
+      const reader = new FileReader();
       console.log(file);
-      console.log(URL.createObjectURL(file));
-      area.ubicacion_imagen = URL.createObjectURL(file);
-      area.url_imagen = this.sanitizer.bypassSecurityTrustUrl(area.ubicacion_imagen);
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        console.log(reader.result);
+        // area.url_imagen = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + reader.result);
+        area.url_imagen = reader.result;
+      };
+
     }, err => {
       area.url_imagen = '../../../assets/images/100.png';
     });

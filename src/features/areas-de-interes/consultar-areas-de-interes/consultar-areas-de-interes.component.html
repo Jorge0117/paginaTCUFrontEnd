@@ -15,7 +15,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Imagen</th>
           <td mat-cell *matCellDef="let area">
             <img src="../../../assets/images/100.png" *ngIf="area.ubicacion_imagen == ''">
-            <img src="{{area.ubicacion_imagen}}" *ngIf="area.ubicacion_imagen != ''">
+            <img src="{{area.url_imagen}}" *ngIf="area.ubicacion_imagen != ''" width="100px">
           </td>
         </ng-container>
 
@@ -32,7 +32,6 @@
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef>Acciones</th>
           <td mat-cell *matCellDef="let area">
-            <button mat-stroked-button class="botonesTabla" [routerLink]="['/areasdeinteres', 'visualizar', area.id]">Detalles</button>
             <button mat-stroked-button class="botonesTabla" [routerLink]="['/areasdeinteres', 'editar', area.id]">Editar</button>
             <button mat-stroked-button class="botonesTabla" (click)="abrirDialogoConfirmacion(area.id)">Eliminar</button>
           </td>

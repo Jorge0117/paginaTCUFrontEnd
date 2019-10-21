@@ -1,0 +1,69 @@
+<div class="container">
+
+  <mat-card class="loginCard">
+
+    <div *ngIf="id === 'correo'">
+      <form [formGroup]="formCorreo" *ngIf="mensajeCorreo === ''">
+
+        <label for="correo">Correo</label>
+        <input id="correo" formControlName="correo" class="form-control">
+        <mat-error *ngIf="correo.errors?.required && correo.touched">
+          Este campo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="correo.errors?.email && correo.touched">
+          El correo no cumple con un formto válido
+        </mat-error>
+      </form>
+
+      <div *ngIf="mensajeCorreo !== ''">
+        {{mensajeCorreo}}
+      </div>
+    </div>
+
+    <div *ngIf="id !== 'correo'">
+
+      <form [formGroup]="formContrasenna" *ngIf="error === false">
+        <div class="form-group">
+          <label for="pass">Contraseña nueva</label>
+          <input id="pass" type="password" formControlName="contrasenna" class="form-control">
+          <mat-error *ngIf="contrasenna.errors?.required && contrasenna.touched">
+            Este campo es obligatorio
+          </mat-error>
+        </div>
+
+        <div class="form-group">
+          <label for="pass2">Repita la contraseña</label>
+          <input id="pass2" type="password" formControlName="repetirContrasenna" class="form-control">
+          <mat-error *ngIf="repetirContrasenna.errors?.required && repetirContrasenna.touched">
+            Este campo es obligatorio
+          </mat-error>
+        </div>
+      </form>
+
+      <div *ngIf="error">
+        <h3>Página no válida</h3>
+        Es posible que el enlace esté expirado o no sea válido. Por favor intentarlo otra vez.
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <button mat-button (click)="enviarCorreo()" [disabled]="formCorreo.invalid" class="mat-stroked-button botonAgregar" *ngIf="id==='correo' && mensajeCorreo===''">
+        Enviar correo
+      </button>
+      <button mat-button (click)="cambiarContrasenna()" [disabled]="formContrasenna.invalid" class="mat-stroked-button botonAgregar" *ngIf="id!=='correo' && !error">
+        Cambiar contraseña
+      </button>
+
+      <button mat-button (click)="cancelar()" class="mat-stroked-button botonAgregar" *ngIf="id!=='correo' || mensajeCorreo===''">
+        Cancelar
+      </button>
+
+      <button mat-button (click)="cancelar()" class="mat-stroked-button botonAgregar" *ngIf="id==='correo' && mensajeCorreo!==''">
+        Volver
+      </button>
+    </div>
+
+  </mat-card>
+
+</div>

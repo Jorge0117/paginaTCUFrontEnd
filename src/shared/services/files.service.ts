@@ -21,8 +21,8 @@ export class FileService {
     return this.httpClient.post<any>(`${this.urlEndPoint}/image?folder=` + folder, imagen);
   }
 
-  descargar(url: string): Observable<any> {
-    return this.httpClient.get(environment.backendUrl + '/download?url=' + url,
-      {headers: this.httpHeaders, responseType: 'blob' as 'json'});
+  descargarImagen(url: string): Observable<any> {
+    return this.httpClient.get(environment.backendUrl + '/downloadImage?url=' + url,
+      {headers: this.httpHeaders, responseType: 'blob'});
   }
 }

@@ -21,7 +21,7 @@
     <div *ngFor="let area of areasDeInteres">
       <button mat-button>
         <img src="../../assets/images/100.png" *ngIf="area.ubicacion_imagen == ''">
-        <img src="{{area.ubicacion_imagen}}" *ngIf="area.ubicacion_imagen != ''">
+        <img src="{{area.url_imagen}}" *ngIf="area.ubicacion_imagen != ''" width="100px">
         <div>{{area.esp_nombre}}</div>
       </button>
     </div>

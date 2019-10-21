@@ -122,11 +122,34 @@ export class FormsAreasDeInteresComponent implements OnInit {
   }
 
   private editar() {
+    if (this.formAreas.get('foto').value !== '') {
+      const formData = new FormData();
+      formData.append('archivo', this.formAreas.get('foto').value);
+
+      this.fileService.subirImagen(formData, 'areas_de_interes').subscribe(
+        (res) => {
+          this.uploadResponse = res.url;
+          console.log(this.uploadResponse.substring(this.uploadResponse.indexOf('files')));
+          this.uploadResponse = this.uploadResponse.substring(this.uploadResponse.indexOf('files\\'));
+          this.editarArea();
+        },
+        (err) => {
+          this.uploadResponse = 'error';
+          this.abrirDialogoError('Ha ocurrido un error subiendo el archivo');
+        }
+      );
+    } else {
+      this.uploadResponse = '';
+      this.editarArea();
+    }
+  }
+
+  private editarArea() {
     const areaEditada = new AreasDeInteresEntidad();
     areaEditada.id = this.area.id;
     areaEditada.esp_nombre = this.formAreas.controls.esp_nombre.value;
     areaEditada.ing_nombre = this.formAreas.controls.ing_nombre.value;
-    areaEditada.ubicacion_imagen = '';
+    areaEditada.ubicacion_imagen = this.uploadResponse;
 
     this.areaService.editar(areaEditada).subscribe(
       result => {

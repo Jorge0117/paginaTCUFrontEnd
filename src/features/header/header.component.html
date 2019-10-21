@@ -24,14 +24,10 @@
     </button>
   </div>
   <div *ngIf="screenWidth >= 700">
-    <button mat-button>Inicio</button>
+    <button mat-button routerLink="/">Inicio</button>
     <button mat-button [matMenuTriggerFor]="areasInteres">Áreas de interés <i class="material-icons">arrow_drop_down</i></button>
     <mat-menu #areasInteres="matMenu">
-      <button mat-menu-item>Ciencia y Literatura</button>
-      <button mat-menu-item>Patrimonio Nacional</button>
-      <button mat-menu-item>Físicos Alrededor</button>
-      <button mat-menu-item>Proyectos Finalizados</button>
-      <button mat-menu-item>Sistemas Complejos</button>
+      <button mat-menu-item *ngFor="let area of areasDeInteres">{{area.esp_nombre}}</button>
     </mat-menu>
     <button mat-button [matMenuTriggerFor]="publicaciones">Publicaciones <i class="material-icons">arrow_drop_down</i></button>
     <mat-menu #publicaciones="matMenu">
