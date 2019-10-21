@@ -45,10 +45,8 @@ export class InicioComponent implements OnInit {
   private descargarImagen(area: AreasDeInteresEntidad) {
     this.fileService.descargarImagen(area.ubicacion_imagen).subscribe(file => {
       const reader = new FileReader();
-      console.log(file);
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        console.log(reader.result);
         // area.url_imagen = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + reader.result);
         area.url_imagen = reader.result;
       };

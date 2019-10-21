@@ -19,7 +19,7 @@
   <mat-card class="areasInteresContainer">
 
     <div *ngFor="let area of areasDeInteres">
-      <button mat-button>
+      <button mat-button [routerLink]="['/articulos/', area.id]">
         <img src="../../assets/images/100.png" *ngIf="area.ubicacion_imagen == ''">
         <img src="{{area.url_imagen}}" *ngIf="area.ubicacion_imagen != ''" width="100px">
         <div>{{area.esp_nombre}}</div>

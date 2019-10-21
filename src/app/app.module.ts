@@ -15,6 +15,7 @@ import {LoginModule} from '../features/login/login.module';
 import {TokenInterceptor} from '../shared/seguridad/token-interceptor';
 import {AreasDeInteresModule} from '../features/areas-de-interes/areas-de-interes.module';
 import {CambioContrasennaModule} from '../features/cambio-contrasenna/cambio-contrasenna.module';
+import {ArticulosModule} from '../features/articulos/articulos.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -32,7 +33,8 @@ import {CambioContrasennaModule} from '../features/cambio-contrasenna/cambio-con
     HttpClientModule,
     LoginModule,
     AreasDeInteresModule,
-    CambioContrasennaModule
+    CambioContrasennaModule,
+    ArticulosModule
   ],
   providers: [
     {

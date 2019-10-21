@@ -1,48 +1,47 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {AreasDeInteresEntidad} from '../../../shared/entities/areasDeInteresEntidad';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {ArticulosEntidad} from '../../../shared/entities/articulosEntidad';
 import {AreasDeInteresService} from '../../../shared/services/areas-de-interes.service';
-import {DialogoComponent} from '../../../shared/components/dialogo/dialogo.component';
 import {FileService} from '../../../shared/services/files.service';
 import {environment} from '../../../environments/environment';
-import {DomSanitizer} from '@angular/platform-browser';
+import {ArticulosService} from '../../../shared/services/articulos.service';
+import {ActivatedRoute} from '@angular/router';
+import {DialogoComponent} from '../../../shared/components/dialogo/dialogo.component';
 
 @Component({
-  selector: 'app-consultar-areas-de-interes',
-  templateUrl: './consultar-areas-de-interes.component.html',
-  styleUrls: ['./consultar-areas-de-interes.component.css']
+  selector: 'app-consultar-articulos',
+  templateUrl: './consultar-articulos.component.html',
+  styleUrls: ['./consultar-articulos.component.css']
 })
-export class ConsultarAreasDeInteresComponent implements OnInit {
+export class ConsultarArticulosComponent implements OnInit {
 
-  areas: Array<AreasDeInteresEntidad>;
+  areas: Array<ArticulosEntidad>;
   private backendUrl: string;
 
-  public displayedColumns: string[] = ['imagen', 'esp_nombre', 'ing_nombre', 'acciones'];
+  public displayedColumns: string[] = ['imagen', 'esp_titulo', 'correo_usuario', 'acciones'];
 
-  public dataSource = new MatTableDataSource<AreasDeInteresEntidad>();
+  public dataSource = new MatTableDataSource<ArticulosEntidad>();
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  constructor(private areasDeInteresService: AreasDeInteresService,
+  constructor(private articulosService: ArticulosService,
               public dialog: MatDialog,
               private fileService: FileService,
-              private sanitizer: DomSanitizer) { }
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.backendUrl = environment.backendUrl;
-    this.consultarAreas();
+    this.consultarArticulos(this.route.snapshot.params.idArea);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  private consultarAreas() {
-    this.areasDeInteresService.consultar().subscribe(
-      areas => {
-        this.dataSource.data = areas as AreasDeInteresEntidad[];
+  private consultarArticulos(idArea: number) {
+    this.articulosService.consultar(idArea).subscribe(
+      articulos => {
+        this.dataSource.data = articulos as ArticulosEntidad[];
         this.areas = this.dataSource.data;
-        for (const area of this.areas) {
-          this.descargarImagen(area);
-        }
       });
   }
 
@@ -51,6 +50,7 @@ export class ConsultarAreasDeInteresComponent implements OnInit {
   }
 
   private eliminar(id: number) {
+    /*
     this.areasDeInteresService.eliminar(id).subscribe(
       res => {
         this.consultarAreas();
@@ -59,6 +59,8 @@ export class ConsultarAreasDeInteresComponent implements OnInit {
       error => {
         this.abrirDialogoError('Error al eliminar usuario.\n' + error.status + '-' + error.statusText);
       });
+
+     */
   }
 
   private abrirDialogoConfirmacion(id: number) {
