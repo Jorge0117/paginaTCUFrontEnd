@@ -8,6 +8,7 @@ import {environment} from '../../../environments/environment';
 import {ArticulosService} from '../../../shared/services/articulos.service';
 import {ActivatedRoute} from '@angular/router';
 import {DialogoComponent} from '../../../shared/components/dialogo/dialogo.component';
+import {AuthService} from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-consultar-articulos',
@@ -19,7 +20,7 @@ export class ConsultarArticulosComponent implements OnInit {
   areas: Array<ArticulosEntidad>;
   private backendUrl: string;
 
-  public displayedColumns: string[] = ['imagen', 'esp_titulo', 'correo_usuario', 'acciones'];
+  public displayedColumns: string[] = ['imagen', 'esp_titulo', 'correo_usuario'];
 
   public dataSource = new MatTableDataSource<ArticulosEntidad>();
 
@@ -28,7 +29,12 @@ export class ConsultarArticulosComponent implements OnInit {
   constructor(private articulosService: ArticulosService,
               public dialog: MatDialog,
               private fileService: FileService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private authService: AuthService) {
+    if (this.authService.isLoggedIn()) {
+      this.displayedColumns.push('acciones');
+    }
+  }
 
   ngOnInit() {
     this.backendUrl = environment.backendUrl;

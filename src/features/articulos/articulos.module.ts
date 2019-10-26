@@ -13,6 +13,7 @@ import {
   MatTableModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormArticulosRoutingModule} from './form-articulos/form-articulos-routing-module';
 
 
 
@@ -24,6 +25,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     ConsultarArticulosRoutingModule,
+    FormArticulosRoutingModule,
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,

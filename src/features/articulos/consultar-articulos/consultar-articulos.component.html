@@ -3,7 +3,7 @@
   <h2>Ártículos</h2>
 
   <div style="margin-top: -3rem">
-    <button mat-stroked-button class="botonAgregar" [routerLink]="['/areasdeinteres', 'agregar', 'nuevo']">Agregar</button>
+    <button mat-stroked-button class="botonAgregar" [routerLink]="['/articulos', 'agregar', 'nuevo']" *ngIf="authService.isLoggedIn()">Agregar</button>
 
     <mat-form-field class="barraBusqueda">
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">

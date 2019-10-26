@@ -17,4 +17,8 @@ export class ArticulosService {
   consultar(idArea: number): Observable<ArticulosEntidad[]> {
     return this.http.get<ArticulosEntidad[]>(this.urlEndPoint + '/area?area=' + idArea);
   }
+
+  agregar(articulo: ArticulosEntidad): Observable<ArticulosEntidad> {
+    return this.http.post<ArticulosEntidad>(this.urlEndPoint, articulo, {headers: this.httpHeaders});
+  }
 }

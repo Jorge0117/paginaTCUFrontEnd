@@ -1,1 +1,28 @@
-<p>form-articulos works!</p>
+<div class="container">
+  <form [formGroup]="formArticulo">
+
+    <h2>{{titulo}}</h2>
+    <mat-card class="formContainer">
+
+      <mat-form-field>
+        <input matInput placeholder="Título" formControlName="esp_titulo" required>
+        <mat-error *ngIf="datos.esp_titulo.errors?.required && datos.esp_titulo.touched">
+          Este campo es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-label>Imagen del artículo</mat-label>
+      <input type="file" (change)="onFileSelect($event)" />
+
+      <textarea></textarea>
+      <textarea></textarea>
+    </mat-card>
+  </form>
+
+  <button mat-button class="botonesAceptarCancelar" type="submit" (click)="editar()" *ngIf="modoForm === 'editar'" [disabled]="formArticulo.invalid">Aceptar</button>
+  <button mat-button class="botonesAceptarCancelar" type="submit" (click)="agregar()" *ngIf="modoForm === 'agregar'" [disabled]="formArticulo.invalid">Aceptar</button>
+
+  <button mat-button class="botonesAceptarCancelar" type="button" (click)="cancelar()">Cancelar</button>
+
+</div>
