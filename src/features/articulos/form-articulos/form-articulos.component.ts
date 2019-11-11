@@ -9,6 +9,7 @@ import {ArticulosService} from '../../../shared/services/articulos.service';
 import {DialogoComponent} from '../../../shared/components/dialogo/dialogo.component';
 import {EditorInstance, EditorOption} from 'angular-markdown-editor';
 import {MarkdownService} from 'ngx-markdown';
+import {AuthService} from '../../../shared/services/auth.service';
 
 
 @Component({
@@ -44,13 +45,17 @@ export class FormArticulosComponent implements OnInit {
               private route: ActivatedRoute,
               public dialog: MatDialog,
               private fileService: FileService,
-              private markdownService: MarkdownService) { }
+              private markdownService: MarkdownService,
+              private authService: AuthService) { }
 
   ngOnInit() {
 
     this.editorOptions = {
+      autofocus: false,
       iconlibrary: 'fa',
-      onShow: (e) => this.bsEditorInstance = e
+      savable: false,
+      onShow: (e) => this.bsEditorInstance = e,
+      parser: (val) => this.parse(val)
     };
 
     this.modoForm = this.route.snapshot.params.modo;
@@ -60,9 +65,7 @@ export class FormArticulosComponent implements OnInit {
       esp_titulo: ['', [
         Validators.required
       ]],
-      esp_cuerpo: ['', [
-        Validators.required
-      ]],
+
       foto: ['']
     });
 
@@ -125,8 +128,13 @@ export class FormArticulosComponent implements OnInit {
     const articuloNuevo = new ArticulosEntidad();
     articuloNuevo.id = 0;
     articuloNuevo.esp_titulo = this.formArticulo.controls.esp_titulo.value;
-    articuloNuevo.esp_cuerpo = this.formArticulo.controls.esp_cuerpo.value;
+    articuloNuevo.esp_cuerpo = this.markdownText;
     articuloNuevo.ubicacion_thumbnail = this.uploadResponse;
+    articuloNuevo.id_area_interes = this.route.snapshot.params.area;
+    articuloNuevo.fecha = new Date();
+    articuloNuevo.ing_titulo = '';
+    articuloNuevo.ing_cuerpo = '';
+    articuloNuevo.correo_usuario = this.authService.getCorreo();
 
     this.articulosService.agregar(articuloNuevo).subscribe(
       result => {
@@ -159,5 +167,11 @@ export class FormArticulosComponent implements OnInit {
       const file = event.target.files[0];
       this.formArticulo.controls.foto.setValue(file);
     }
+  }
+
+  parse(inputValue: string) {
+    const markedOutput = this.markdownService.compile(inputValue.trim());
+
+    return markedOutput;
   }
 }

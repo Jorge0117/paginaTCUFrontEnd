@@ -106,4 +106,9 @@ export class AuthService {
     const datosToken = jwt_decode(localStorage.getItem('JWT_TOKEN'));
     return datosToken.identity.nombre + ' ' + datosToken.identity.apellido1 + ' ' + datosToken.identity.apellido2;
   }
+
+  public getCorreo() {
+    const datosToken = jwt_decode(localStorage.getItem('JWT_TOKEN'));
+    return datosToken.identity.correo;
+  }
 }

@@ -7,7 +7,7 @@ import {AuthGuard} from '../../../shared/seguridad/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'articulos/:modo/:id',
+    path: 'articulos/:area/:modo/:id',
     component: FormArticulosComponent,
     canActivate: [AuthGuard]
   }

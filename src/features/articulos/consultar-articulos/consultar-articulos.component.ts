@@ -23,6 +23,7 @@ export class ConsultarArticulosComponent implements OnInit {
   public displayedColumns: string[] = ['imagen', 'esp_titulo', 'correo_usuario'];
 
   public dataSource = new MatTableDataSource<ArticulosEntidad>();
+  idArea: number;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -38,13 +39,14 @@ export class ConsultarArticulosComponent implements OnInit {
 
   ngOnInit() {
     this.backendUrl = environment.backendUrl;
-    this.consultarArticulos(this.route.snapshot.params.idArea);
+    this.idArea = this.route.snapshot.params.idArea;
+    this.consultarArticulos();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  private consultarArticulos(idArea: number) {
-    this.articulosService.consultar(idArea).subscribe(
+  private consultarArticulos() {
+    this.articulosService.consultar(this.idArea).subscribe(
       articulos => {
         this.dataSource.data = articulos as ArticulosEntidad[];
         this.areas = this.dataSource.data;
