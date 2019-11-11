@@ -14,7 +14,7 @@ export class PersonasService {
   constructor(private http: HttpClient) { }
 
   consultar(tipo: string): Observable<PersonaEntidad[]> {
-    return this.http.get<PersonaEntidad[]>(this.urlEndPoint + '/?tipo=' + tipo);
+    return this.http.get<PersonaEntidad[]>(this.urlEndPoint + '?tipo=' + tipo);
   }
 
   async consultarPersona(correo: string): Promise<any> {

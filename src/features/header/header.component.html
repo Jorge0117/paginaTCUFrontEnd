@@ -34,6 +34,14 @@
       <button mat-menu-item>Publicaciones Científicas</button>
       <button mat-menu-item>Tesis</button>
     </mat-menu>
+    <button mat-button [matMenuTriggerFor]="personas">Personas <i class="material-icons">arrow_drop_down</i></button>
+    <mat-menu #personas="matMenu">
+      <button mat-menu-item>Coordinador</button>
+      <button mat-menu-item routerLink="/personas/Estudiante">Estudiantes</button>
+      <button mat-menu-item routerLink="/personas/Estudiante en pasantía">Estudiantes en pasantía</button>
+      <button mat-menu-item routerLink="/personas/Ex alumno">Estudiantes en pasantía</button>
+      <button mat-menu-item routerLink="/personas/Profesor">Estudiantes en pasantía</button>
+    </mat-menu>
     <button mat-button [matMenuTriggerFor]="noticias">Noticias <i class="material-icons">arrow_drop_down</i></button>
     <mat-menu #noticias="matMenu">
       <button mat-menu-item>Noticias y artículos destacados</button>

@@ -5,10 +5,10 @@ import {AreasDeInteresService} from '../../../shared/services/areas-de-interes.s
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {FileService} from '../../../shared/services/files.service';
-import {AreasDeInteresEntidad} from '../../../shared/entities/areasDeInteresEntidad';
 import {ArticulosService} from '../../../shared/services/articulos.service';
 import {DialogoComponent} from '../../../shared/components/dialogo/dialogo.component';
-import * as EasyMDE from 'easymde';
+import {EditorInstance, EditorOption} from 'angular-markdown-editor';
+import {MarkdownService} from 'ngx-markdown';
 
 
 @Component({
@@ -33,17 +33,26 @@ export class FormArticulosComponent implements OnInit {
 
   ubicacionImagen;
 
-  private easyMDE;
+  bsEditorInstance: EditorInstance;
+  editorOptions: EditorOption;
+  markdownText: string;
+
 
   constructor(private articulosService: ArticulosService,
               private fb: FormBuilder,
               private routeService: Router,
               private route: ActivatedRoute,
               public dialog: MatDialog,
-              private fileService: FileService) { }
+              private fileService: FileService,
+              private markdownService: MarkdownService) { }
 
   ngOnInit() {
-    this.easyMDE = new EasyMDE();
+
+    this.editorOptions = {
+      iconlibrary: 'fa',
+      onShow: (e) => this.bsEditorInstance = e
+    };
+
     this.modoForm = this.route.snapshot.params.modo;
     this.articulo = new ArticulosEntidad();
 

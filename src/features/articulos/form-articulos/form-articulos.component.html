@@ -15,8 +15,10 @@
       <mat-label>Imagen del artículo</mat-label>
       <input type="file" (change)="onFileSelect($event)" />
 
-      <textarea></textarea>
-      <textarea></textarea>
+      <angular-markdown-editor textareaId="editor1"  [options]="editorOptions"
+                               rows="12" name="markdownText" [(ngModel)]="markdownText" [ngModelOptions]="{standalone: true}">
+      </angular-markdown-editor>
+
     </mat-card>
   </form>
 
