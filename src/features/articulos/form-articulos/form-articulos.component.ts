@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ArticulosEntidad} from '../../../shared/entities/articulosEntidad';
-import {AreasDeInteresService} from '../../../shared/services/areas-de-interes.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {FileService} from '../../../shared/services/files.service';

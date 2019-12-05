@@ -22,6 +22,7 @@ export class FormPersonasComponent implements OnInit {
 
   // Usuario a editar/visualizar
   private persona: PersonaEntidad;
+  private tipoPersona: string;
 
   // Modo del form
   private modoForm: string;
@@ -35,6 +36,7 @@ export class FormPersonasComponent implements OnInit {
   ngOnInit() {
     this.modoForm = this.route.snapshot.params.modo;
     this.persona = new PersonaEntidad();
+    this.tipoPersona = this.route.snapshot.params.tipo;
 
     this.formPersonas = this.fb.group({
       correo: ['', [
@@ -53,7 +55,7 @@ export class FormPersonasComponent implements OnInit {
         Validators.required,
         Validators.pattern('[A-Za-záéíóú ]*')
       ]],
-      tipo: ['', [
+      tipo: [this.tipoPersona, [
         Validators.required
       ]],
       escuela: ['', [
@@ -113,7 +115,7 @@ export class FormPersonasComponent implements OnInit {
 
     this.personasService.agregar(personaNueva).subscribe(
       result => {
-        this.routeService.navigate(['/personas']);
+        this.routeService.navigate(['/personas/' + this.tipoPersona]);
         this.abrirDialogoAfirmacion('Persona agregado correctamente');
       },
       error => {

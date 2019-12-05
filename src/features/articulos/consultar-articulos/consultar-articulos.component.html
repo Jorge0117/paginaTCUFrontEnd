@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h2>Ártículos</h2>
+  <h2>{{titulo}}</h2>
 
   <div style="margin-top: -3rem">
     <button mat-stroked-button class="botonAgregar" [routerLink]="['/articulos',idArea ,'agregar', 'nuevo']" *ngIf="authService.isLoggedIn()">Agregar</button>

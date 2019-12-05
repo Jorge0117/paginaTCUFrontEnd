@@ -24,10 +24,12 @@ export class ConsultarArticulosComponent implements OnInit {
 
   public dataSource = new MatTableDataSource<ArticulosEntidad>();
   idArea: number;
+  private titulo: string;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   constructor(private articulosService: ArticulosService,
+              private areaService: AreasDeInteresService,
               public dialog: MatDialog,
               private fileService: FileService,
               private route: ActivatedRoute,
@@ -38,6 +40,14 @@ export class ConsultarArticulosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(
+      params => {
+        this.idArea = this.route.snapshot.params.idArea;
+        this.consultarArticulos();
+        this.consultarTitulo();
+      }
+    );
+    this.consultarTitulo();
     this.backendUrl = environment.backendUrl;
     this.idArea = this.route.snapshot.params.idArea;
     this.consultarArticulos();
@@ -51,6 +61,12 @@ export class ConsultarArticulosComponent implements OnInit {
         this.dataSource.data = articulos as ArticulosEntidad[];
         this.areas = this.dataSource.data;
       });
+  }
+
+  private consultarTitulo() {
+    this.areaService.consultarArea(this.idArea).then(area => {
+      this.titulo = area.esp_nombre;
+    });
   }
 
   applyFilter(filterValue: string) {

@@ -33,6 +33,13 @@ export class ConsultarPersonasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(
+      params => {
+        this.tipoPersonas = this.route.snapshot.params.tipo;
+        this.consultarPersonas(this.tipoPersonas);
+      }
+    );
+
     this.tipoPersonas = this.route.snapshot.params.tipo;
     this.consultarPersonas(this.tipoPersonas);
     this.dataSource.paginator = this.paginator;

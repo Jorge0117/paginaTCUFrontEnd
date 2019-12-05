@@ -121,7 +121,7 @@ export class CambioContrasennaComponent implements OnInit {
         data: {mensaje, tipoMensaje: 'afirmacion'}
       });
     dialogRef.afterClosed().subscribe(res => {
-      this.routeService.navigate(['/login']);
+      this.routeService.navigate(['/']);
     });
   }
 }

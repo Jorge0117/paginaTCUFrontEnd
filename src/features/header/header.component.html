@@ -27,7 +27,7 @@
     <button mat-button routerLink="/">Inicio</button>
     <button mat-button [matMenuTriggerFor]="areasInteres">Áreas de interés <i class="material-icons">arrow_drop_down</i></button>
     <mat-menu #areasInteres="matMenu">
-      <button mat-menu-item *ngFor="let area of areasDeInteres">{{area.esp_nombre}}</button>
+      <button mat-menu-item *ngFor="let area of areasDeInteres" routerLink="/articulos/{{area.id}}">{{area.esp_nombre}}</button>
     </mat-menu>
     <button mat-button [matMenuTriggerFor]="publicaciones">Publicaciones <i class="material-icons">arrow_drop_down</i></button>
     <mat-menu #publicaciones="matMenu">
@@ -39,8 +39,8 @@
       <button mat-menu-item>Coordinador</button>
       <button mat-menu-item routerLink="/personas/Estudiante">Estudiantes</button>
       <button mat-menu-item routerLink="/personas/Estudiante en pasantía">Estudiantes en pasantía</button>
-      <button mat-menu-item routerLink="/personas/Ex alumno">Estudiantes en pasantía</button>
-      <button mat-menu-item routerLink="/personas/Profesor">Estudiantes en pasantía</button>
+      <button mat-menu-item routerLink="/personas/Ex alumno">Ex alumnos</button>
+      <button mat-menu-item routerLink="/personas/Profesor">Profesores</button>
     </mat-menu>
     <button mat-button [matMenuTriggerFor]="noticias">Noticias <i class="material-icons">arrow_drop_down</i></button>
     <mat-menu #noticias="matMenu">
