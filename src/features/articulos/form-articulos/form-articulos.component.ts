@@ -9,6 +9,7 @@ import {DialogoComponent} from '../../../shared/components/dialogo/dialogo.compo
 import {EditorInstance, EditorOption} from 'angular-markdown-editor';
 import {MarkdownService} from 'ngx-markdown';
 import {AuthService} from '../../../shared/services/auth.service';
+import {UsuariosService} from '../../../shared/services/usuarios.service';
 
 
 @Component({
@@ -29,6 +30,8 @@ export class FormArticulosComponent implements OnInit {
   // Modo del form
   private modoForm: string;
 
+  private idArea;
+  private nombreAutor;
   uploadResponse;
 
   ubicacionImagen;
@@ -45,6 +48,7 @@ export class FormArticulosComponent implements OnInit {
               public dialog: MatDialog,
               private fileService: FileService,
               private markdownService: MarkdownService,
+              private usuarioService: UsuariosService,
               private authService: AuthService) { }
 
   ngOnInit() {
@@ -58,6 +62,7 @@ export class FormArticulosComponent implements OnInit {
     };
 
     this.modoForm = this.route.snapshot.params.modo;
+    this.idArea = this.route.snapshot.params.area;
     this.articulo = new ArticulosEntidad();
 
     this.formArticulo = this.fb.group({
@@ -70,26 +75,27 @@ export class FormArticulosComponent implements OnInit {
 
     if (this.modoForm === 'agregar') {
       this.titulo = 'Agregar artículo';
-    } /*else {
+    } else {
 
-      this.areaService.consultarArea(this.route.snapshot.params.id).then(res => {
-        this.area = res;
-        this.formAreas.controls.esp_nombre.setValue(this.area.esp_nombre);
-        this.formAreas.controls.ing_nombre.setValue(this.area.ing_nombre);
-        this.ubicacionImagen = this.area.ubicacion_imagen;
+      this.articulosService.consultarArticulo(this.route.snapshot.params.id).then(res => {
+        this.articulo = res;
+        this.descargarImagen(this.articulo);
+        this.consultarAutor();
+        this.formArticulo.controls.esp_titulo.setValue(this.articulo.esp_titulo);
+        this.formArticulo.controls.foto.setValue(this.articulo.ubicacion_thumbnail);
+        this.ubicacionImagen = this.articulo.ubicacion_thumbnail;
       }, err => {
-        this.abrirDialogoError('Error recuperando los datos del área de interés.\n' + err.status + '-' + err.statusText);
-        this.routeService.navigate(['/areasdeinteres']);
+        this.abrirDialogoError('Error recuperando los datos del artículo.\n' + err.status + '-' + err.statusText);
+        this.routeService.navigate(['/articulos/' + this.idArea]);
       });
 
       if (this.modoForm === 'editar') {
-        this.titulo = 'Editar áreas de interés';
+        this.titulo = 'Editar artículo';
       } else {
-        this.titulo = 'Visualizar áreas de interés';
-        this.formAreas.disable();
+        this.titulo = 'Visualizar artículo';
+        this.formArticulo.disable();
       }
     }
-    */
   }
 
   get datos() {
@@ -97,7 +103,7 @@ export class FormArticulosComponent implements OnInit {
   }
 
   private cancelar() {
-    this.routeService.navigate(['/areasdeinteres']);
+    this.routeService.navigate(['/articulos/' + this.idArea]);
   }
 
   private agregar() {
@@ -137,7 +143,7 @@ export class FormArticulosComponent implements OnInit {
 
     this.articulosService.agregar(articuloNuevo).subscribe(
       result => {
-        this.routeService.navigate(['/areasdeinteres']);
+        this.routeService.navigate(['/articulos/' + this.idArea]);
         this.abrirDialogoAfirmacion('Artículo agregado correctamente');
       },
       error => {
@@ -172,5 +178,24 @@ export class FormArticulosComponent implements OnInit {
     const markedOutput = this.markdownService.compile(inputValue.trim());
 
     return markedOutput;
+  }
+
+  private descargarImagen(articulo: ArticulosEntidad) {
+    this.fileService.descargarImagen(articulo.ubicacion_thumbnail).subscribe(file => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        articulo.url_imagen = reader.result;
+      };
+
+    }, err => {
+      articulo.url_imagen = '../../../assets/images/100.png';
+    });
+  }
+
+  private consultarAutor() {
+    this.usuarioService.consultarUsuario(this.articulo.correo_usuario).then(res => {
+      this.nombreAutor = res.nombre + ' ' + res.apellido1 + ' ' + res.apellido2;
+    });
   }
 }

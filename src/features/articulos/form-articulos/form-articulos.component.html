@@ -11,13 +11,26 @@
         </mat-error>
       </mat-form-field>
 
+      <div *ngIf="modoForm == 'visualizar'" style="margin-bottom: 1.5rem">
+        <img src="../../../assets/images/100.png" *ngIf="this.ubicacion_imagen == ''">
+        <img src="{{articulo.url_imagen}}" *ngIf="this.ubicacion_imagen != ''" width="100px">
+        <div>
+          Escrito por {{nombreAutor}}.<br>
+          {{articulo.fecha}}.
+        </div>
+      </div>
 
-      <mat-label>Imagen del artículo</mat-label>
-      <input type="file" (change)="onFileSelect($event)" />
+      <div *ngIf="modoForm == 'agregar'">
+        <mat-label>Imagen del artículo</mat-label>
+        <input type="file" (change)="onFileSelect($event)" />
+      </div>
 
       <angular-markdown-editor textareaId="editor1"  [options]="editorOptions"
-                               rows="12" name="markdownText" [(ngModel)]="markdownText" [ngModelOptions]="{standalone: true}">
+                               rows="12" name="markdownText" [(ngModel)]="markdownText" [ngModelOptions]="{standalone: true}"
+                               *ngIf="modoForm == 'agregar'">
       </angular-markdown-editor>
+
+      <markdown [data]="articulo.esp_cuerpo" *ngIf="modoForm == 'visualizar'"></markdown>
 
     </mat-card>
   </form>

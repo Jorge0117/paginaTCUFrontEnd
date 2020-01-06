@@ -3,6 +3,7 @@ import {environment} from '../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ArticulosEntidad} from '../entities/articulosEntidad';
+import {AreasDeInteresEntidad} from '../entities/areasDeInteresEntidad';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,15 @@ export class ArticulosService {
 
   constructor(private http: HttpClient) { }
 
-  consultar(idArea: number): Observable<ArticulosEntidad[]> {
-    return this.http.get<ArticulosEntidad[]>(this.urlEndPoint + '/area?area=' + idArea);
+  consultar(idArticulo: number): Observable<ArticulosEntidad[]> {
+    return this.http.get<ArticulosEntidad[]>(this.urlEndPoint + '/area?area=' + idArticulo);
   }
 
   agregar(articulo: ArticulosEntidad): Observable<ArticulosEntidad> {
     return this.http.post<ArticulosEntidad>(this.urlEndPoint, articulo, {headers: this.httpHeaders});
+  }
+
+  async consultarArticulo(idArticulo: number): Promise<any> {
+    return this.http.get<ArticulosEntidad>(this.urlEndPoint + '/id?id=' + idArticulo).toPromise();
   }
 }

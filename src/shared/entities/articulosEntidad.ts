@@ -1,3 +1,5 @@
+import {SafeUrl} from '@angular/platform-browser';
+
 export class ArticulosEntidad {
   id: number;
   fecha: Date;
@@ -8,4 +10,6 @@ export class ArticulosEntidad {
   ing_cuerpo: string;
   id_area_interes: number;
   correo_usuario: string;
+  url_imagen: SafeUrl;
+  nombreAutor: string;
 }

@@ -48,3 +48,11 @@ th.mat-header-cell {
   background-color: #41ade7;
   color: white;
 }
+
+.mat-row{
+  cursor: pointer;
+}
+
+.mat-row:hover{
+  filter: brightness(80%);
+}

@@ -6,9 +6,10 @@ import {AreasDeInteresService} from '../../../shared/services/areas-de-interes.s
 import {FileService} from '../../../shared/services/files.service';
 import {environment} from '../../../environments/environment';
 import {ArticulosService} from '../../../shared/services/articulos.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DialogoComponent} from '../../../shared/components/dialogo/dialogo.component';
 import {AuthService} from '../../../shared/services/auth.service';
+import {UsuariosService} from '../../../shared/services/usuarios.service';
 
 @Component({
   selector: 'app-consultar-articulos',
@@ -17,7 +18,7 @@ import {AuthService} from '../../../shared/services/auth.service';
 })
 export class ConsultarArticulosComponent implements OnInit {
 
-  areas: Array<ArticulosEntidad>;
+  articulos: Array<ArticulosEntidad>;
   private backendUrl: string;
 
   public displayedColumns: string[] = ['imagen', 'esp_titulo', 'correo_usuario'];
@@ -30,6 +31,8 @@ export class ConsultarArticulosComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   constructor(private articulosService: ArticulosService,
               private areaService: AreasDeInteresService,
+              private usuarioService: UsuariosService,
+              private routeService: Router,
               public dialog: MatDialog,
               private fileService: FileService,
               private route: ActivatedRoute,
@@ -59,7 +62,11 @@ export class ConsultarArticulosComponent implements OnInit {
     this.articulosService.consultar(this.idArea).subscribe(
       articulos => {
         this.dataSource.data = articulos as ArticulosEntidad[];
-        this.areas = this.dataSource.data;
+        this.articulos = this.dataSource.data;
+        for (const articulo of this.articulos) {
+          this.descargarImagen(articulo);
+          this.consultarAutor(articulo);
+        }
       });
   }
 
@@ -116,16 +123,26 @@ export class ConsultarArticulosComponent implements OnInit {
       });
   }
 
-  private descargarImagen(area: AreasDeInteresEntidad) {
-    this.fileService.descargarImagen(area.ubicacion_imagen).subscribe(file => {
+  private descargarImagen(articulo: ArticulosEntidad) {
+    this.fileService.descargarImagen(articulo.ubicacion_thumbnail).subscribe(file => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        area.url_imagen = reader.result;
+        articulo.url_imagen = reader.result;
       };
 
     }, err => {
-      area.url_imagen = '../../../assets/images/100.png';
+      articulo.url_imagen = '../../../assets/images/100.png';
+    });
+  }
+
+  private visualizarArticulo(articulo: ArticulosEntidad) {
+    this.routeService.navigate(['/articulos/' + this.idArea + '/visualizar/' + articulo.id]);
+  }
+
+  private consultarAutor(articulo: ArticulosEntidad) {
+    this.usuarioService.consultarUsuario(articulo.correo_usuario).then(res => {
+      articulo.nombreAutor = res.nombre + ' ' + res.apellido1 + ' ' + res.apellido2;
     });
   }
 }
